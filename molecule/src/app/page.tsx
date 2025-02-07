@@ -1,14 +1,18 @@
+"use client"
+
 import Image from "next/image";
-import Aurora from '@/jsrepo/Backgrounds/Aurora/Aurora';
+import Orb from "@/jsrepo/Backgrounds/Orb/Orb";
 // import Navbar from "@/components/navbar/navbar"; //Improve this
 
 export default function Home() {
   return (
-    <div>
-      <Aurora
-      colorStops={["#3A29FF", "#FF94B4", "#FF3232"]}
-      speed={0.5}
-      />
+    <div style={{ width: '100%', height: '600px', position: 'relative' }}>
+    <Orb
+      hoverIntensity={0.2 }
+      rotateOnHover={true}
+      hue={0}
+      forceHoverState={false}
+    />
     </div>
   );
 }
