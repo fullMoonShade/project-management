@@ -56,3 +56,5 @@ next-env.d.ts
 .idea/
 
 
+# Database specific
+db/
