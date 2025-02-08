@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Orb from "@/jsrepo/Backgrounds/Orb/Orb";
-import { MenuBar } from "@/components/navbar/MenuBar"; 
+import { MenuBar } from "@/components/navbar/MenuBar"; // Make this mobile friendly
 
 export default function Home() {
   return (
