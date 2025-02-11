@@ -5,10 +5,10 @@ FROM python:3.12.9-slim
 WORKDIR /usr/src/django_backend
 
 # Set environment variables to prevent .pyc files and enable buffered output
-ENV PYTHONBUFFERED=1
+ENV PYTHONUNBUFFERED=1
 ENV PYTHONDONTWRITEBYTECODE=1
 
-# Install necessary dependencies
+# Install necessary system dependencies
 RUN apt-get update && apt-get install -y \
     gcc \
     libffi-dev \
@@ -16,17 +16,23 @@ RUN apt-get update && apt-get install -y \
     build-essential \
     && rm -rf /var/lib/apt/lists/*
 
-# Create a virtual environment and install dependencies
-RUN python -m venv env
-ENV PATH="/usr/src/django_backend/env/bin:$PATH"
-
-# Copy dependencies first (for better caching)
+# Copy dependencies file first (optimized caching)
 COPY requirements.txt .
-RUN pip install --upgrade pip && pip install -r requirements.txt
+
+# Create a virtual environment and install dependencies
+RUN python3 -m venv env && \
+    /usr/src/django_backend/env/Scripts/pip install --upgrade pip && \
+    /usr/src/django_backend/env/Scripts/pip install -r requirements.txt
 
 # Copy the rest of the application files
 COPY . .
 
-# Expose port 8000
-EXPOSE 8000
+# Make the entrypoint script executable
+# COPY entrypoint.sh .
+# RUN chmod +x entrypoint.sh
 
+# Set the entrypoint
+# ENTRYPOINT ["./entrypoint.sh"]
+
+# Expose port 8000 for Django
+EXPOSE 8000
